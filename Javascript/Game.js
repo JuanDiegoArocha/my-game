@@ -17,8 +17,10 @@ class Game {
         //* Enemy 2
         this.enemies2 = []
 
-        
-        
+        //* Disparo
+        this.projectile = new Projectile()
+
+
     }
 
 
@@ -91,6 +93,9 @@ class Game {
         }
     }
 
+
+
+
     gameLoop = () => {
         // console.log("Ejecutando recursion del juego")
 
@@ -112,6 +117,7 @@ class Game {
         this.po.draw()
         this.enemies.forEach((eachEnemy) => {eachEnemy.draw()})
         this.enemies2.forEach((eachEnemy) => {eachEnemy.draw()})
+        this.projectile.draw()
 
 
         // 4. Recursion

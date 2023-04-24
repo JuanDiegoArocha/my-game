@@ -23,6 +23,8 @@ class Po {
     this.rightAttackImg.src = "Images/po-punchsinfondo.png"; // Golpe derecho
     this.Attacking = false;
     this.AttackingTime = 0;
+
+
   }
 
   draw = () => {
@@ -75,6 +77,9 @@ class Po {
       if (keys["KeyA"]) {
         this.leftAttack = true;
         this.Attacking = true; // Po esta lanzando el ataque
+
+        const projectile = new Projectile(this.x, this.y, 10, -1)
+        this.projectiles.push(projectile) // Po deberia disparar un objeto
       } else {
         setTimeout(() => {
           this.leftAttack = false;
@@ -86,6 +91,10 @@ class Po {
       if (keys["KeyD"]) {
         this.rightAttack = true;
         this.Attacking = true; // Po esta lanzando el ataque
+
+        // const projectile = new Projectile(this.x, this.y, 10, -1)
+        // this.projectiles.push(projectile)
+
       } else {
         setTimeout(() => {
           this.rightAttack = false;
@@ -100,5 +109,9 @@ class Po {
       }
     } 
   };
+
+  
+
+
 }
 
