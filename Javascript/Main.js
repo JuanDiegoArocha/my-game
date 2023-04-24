@@ -39,12 +39,10 @@ const startGame = () => {
     gameObj = new Game();
     console.log(gameObj)
 
-
+    gameObj.spawnEnemies();
+    gameObj.spawnEnemies2();
     // 3. Iniciar el bucle del juego
     gameObj.gameLoop()
-    
-
-
 
 }
 

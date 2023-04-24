@@ -12,6 +12,9 @@ class Po {
     this.crouch = false;
     this.crouchImg = new Image();
     this.crouchImg.src = "Images/po-down.png"; // Agachado
+    this.jump = false;
+    this.jumpImg = new Image();
+    this.jumpImg.src = "Images/po-kick.png" // Po "salta"
     this.leftAttack = false;
     this.leftAttackImg = new Image();
     this.leftAttackImg.src = "Images/po-punch.png"; // Golpe izquierdo
@@ -23,7 +26,9 @@ class Po {
   }
 
   draw = () => {
-    if (this.leftAttack) {
+    if (this.jump) {
+    ctx.drawImage(this.jumpImg, this.x, this.y - 100, this.w, this.h)
+    } else if (this.leftAttack) {
       ctx.drawImage(this.leftAttackImg, this.x, this.y, this.w, this.h);
       return; // Po no se puede mover mientras ataca
     } else if (this.rightAttack) {
@@ -59,8 +64,15 @@ class Po {
         this.crouch = false;
       }
 
-      // Si presionas la flecha izquierda y la tecla Space, haces el ataque hacia la izquierda
-      if (keys["ArrowLeft"] && keys["Space"]) {
+      // Si presionas la flecha de arriba po Salta
+      if (keys["ArrowUp"]) {
+        this.jump = true;
+      } else {
+        this.jump = false;
+      }
+
+      // Si presionas la "A" po dispara a la izquierda
+      if (keys["KeyA"]) {
         this.leftAttack = true;
         this.Attacking = true; // Po esta lanzando el ataque
       } else {
@@ -71,7 +83,7 @@ class Po {
       }
 
       // Si presionas la flecha derecha y la tecla Space, haces el ataque hacia la derecha
-      if (keys["ArrowRight"] && keys["Space"]) {
+      if (keys["KeyD"]) {
         this.rightAttack = true;
         this.Attacking = true; // Po esta lanzando el ataque
       } else {

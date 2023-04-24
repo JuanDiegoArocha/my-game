@@ -4,13 +4,14 @@ class Enemy {
 
         this.img = new Image()
         this.img.src = "Images/tai-lung.png"
-        this.x = canvas.width - 200
+        this.x = -400;
         this.y = 600
         this.w = 450
         this.h = 300
-        this.speed = 1
+        this.speed = 1.2
+        
 
-
+    
     }
 
 
@@ -23,7 +24,8 @@ class Enemy {
 
     // los tubos se mueven hacia el pollito 
     move = () => {
-        this.x -= this.speed
+        this.x += this.speed
     }
 
+  
 }
