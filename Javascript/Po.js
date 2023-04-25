@@ -22,7 +22,7 @@ class Po {
     this.rightAttackImg = new Image();
     this.rightAttackImg.src = "Images/po-punchsinfondo.png"; // Golpe derecho
     this.Attacking = false;
-    this.AttackingTime = 0;
+    // this.AttackingTime = 0;
 
 
   }
@@ -77,8 +77,6 @@ class Po {
       if (keys["KeyA"]) {
         this.leftAttack = true;
         this.Attacking = true; // Po esta lanzando el ataque
-
- 
       } else {
         setTimeout(() => {
           this.leftAttack = false;
@@ -90,10 +88,6 @@ class Po {
       if (keys["KeyD"]) {
         this.rightAttack = true;
         this.Attacking = true; // Po esta lanzando el ataque
-
-
-        
-
       } else {
         setTimeout(() => {
           this.rightAttack = false;

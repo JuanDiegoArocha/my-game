@@ -1,7 +1,7 @@
 //* GLOBAL VARIABLES
 
 const splashScreenDOM = document.querySelector("#splash-screen")
-const gameoverScreenDOM = document.querySelector("#gameover-screem")
+const gameoverScreenDOM = document.querySelector("#gameover-screen")
 const startBtnDOM = document.querySelector("#start-btn")
 const restartBtnDOM = document.querySelector("#restart-btn")
 const canvas = document.querySelector("#my-canvas")
@@ -54,6 +54,8 @@ const restartGame = () => {
     gameoverScreenDOM.style.display = "none";
     canvas.style.display = "block";
     gameObj = new Game()
+    gameObj.spawnEnemies();
+    gameObj.spawnEnemies2();
     gameObj.gameLoop()
 
 }
