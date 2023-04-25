@@ -27,7 +27,7 @@ body {
     
 }
 
-.container #start-btn {
+.container #start-btn, #restart-btn {
    position: relative;
    background: none;
    border: none;
@@ -43,12 +43,15 @@ body {
     
 }
 
-#gameover-screen { 
+ #gameover-screen { 
+    position: absolute;
+    background-image: url(../Images/gameover-sinfondo.png);
     background-size: cover;
     width: 50%;
     margin: auto;
     align-items: center;
     background-repeat: no-repeat;
+    display: none;
 }
 
 .container #restart-btn {

@@ -3,6 +3,9 @@ class Game {
     this.background = new Image();
     this.background.src = "Images/background.jpg";
 
+    this.isGameOn = true;
+
+
     //* Po
     this.po = new Po();
 
@@ -32,7 +35,7 @@ class Game {
       const newEnemy = new Enemy();
       this.enemies.push(newEnemy);
       this.spawnEnemies();
-    }, 3000);
+    }, 3500);
   }
 
   spawnEnemies2() {
@@ -40,7 +43,7 @@ class Game {
       const newEnemy = new Enemy2();
       this.enemies2.push(newEnemy);
       this.spawnEnemies2();
-    }, 3000);
+    }, 3500);
   }
 
   checkCollision = () => {
@@ -54,6 +57,7 @@ class Game {
         this.po.y + this.po.h > eachEnemy.y
       ) {
         console.log("colision");
+        this.gameOver()
       }
     }
   };
@@ -68,9 +72,24 @@ class Game {
         this.po.y + this.po.h > eachEnemy.y
       ) {
         console.log("colision2");
+        this.gameOver()
       }
     }
   };
+
+
+  gameOver = () => {
+    // 1. Detener el juego
+    this.isGameOn = false;
+
+    // 2. Ocultar el canvas
+    canvas.style.display = "none"
+
+    // 3. Final Screen
+    gameoverScreenDOM.style.display = "flex"
+  }
+
+
 
   shootingLeft = () => {
     let newShootingLeft = new ProjectileLeft(this.po.x, this.po.y);
@@ -81,6 +100,49 @@ class Game {
     let newShootingRight = new ProjectileRight(this.po.x, this.po.y);
     this.projectileRight.push(newShootingRight);
   };
+
+  shootingLeftCollision = () => {
+    for (let i = 0; i < this.projectileLeft.length; i++) {
+        const eachProjectileLeft = this.projectileLeft[i];
+        for (let j = 0; j < this.enemies.length; j++) {
+          const eachEnemy = this.enemies[j];
+          if (
+            eachProjectileLeft.x < eachEnemy.x + eachEnemy.w &&
+            eachProjectileLeft.x + eachProjectileLeft.w > eachEnemy.x &&
+            eachProjectileLeft.y < eachEnemy.y + eachEnemy.h &&
+            eachProjectileLeft.y + eachProjectileLeft.h > eachEnemy.y
+          ) {
+            // Eliminar el enemigo del array
+            this.enemies.splice(j, 1);
+            // Eliminar el proyectil del array
+            this.projectileLeft.splice(i, 1);
+            console.log("LeftColision")
+          }
+        }
+      }
+    };
+
+  shootingRightCollision = () => {
+    for (let i = 0; i < this.projectileRight.length; i++) {
+        const eachProjectileRight = this.projectileRight[i];
+        for (let j = 0; j < this.enemies2.length; j++) {
+          const eachEnemy = this.enemies2[j];
+          if (
+            eachProjectileRight.x < eachEnemy.x + eachEnemy.w &&
+            eachProjectileRight.x + eachProjectileRight.w > eachEnemy.x &&
+            eachProjectileRight.y < eachEnemy.y + eachEnemy.h &&
+            eachProjectileRight.y + eachProjectileRight.h > eachEnemy.y
+          ) {
+            // Eliminar el enemigo del array
+            this.enemies2.splice(j, 1);
+            // Eliminar el proyectil del array
+            this.projectileRight.splice(i, 1);
+            console.log("RightColision")
+          }
+        }
+      }
+    };
+
 
   gameLoop = () => {
     // console.log("Ejecutando recursion del juego")
@@ -106,6 +168,8 @@ class Game {
     // console.log("Spawn enemies")
     this.checkCollision();
     this.checkCollision2();
+    this.shootingLeftCollision()
+    this.shootingRightCollision()
     // 3. Dibujado de los elementos //! QUE ESTEN EN ORDEN
     this.drawBackground();
     this.po.draw();
@@ -123,6 +187,9 @@ class Game {
       });
 
     // 4. Recursion
+    if (this.isGameOn === true) {
     requestAnimationFrame(this.gameLoop);
+    }
   };
 }
+
