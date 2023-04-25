@@ -1,12 +1,12 @@
-class Projectile {
+class ProjectileLeft {
 
-    constructor() {
+    constructor(PoX, PoY) {
 
-        this.x = 800
-        this.y = 100
+        this.x = PoX
+        this.y = PoY
         this.w = 50
         this.h = 50
-        this.speed = 1;
+        this.speed = 2;
         // this.direction = direction
         this.img = new Image()
         this.img.src = "Images/dumbling.png"
@@ -22,7 +22,7 @@ class Projectile {
 
 
     shoot = () => {
-        this.x += this.direction + this.speed;
+        this.x -=  this.speed;
     }
 
 }

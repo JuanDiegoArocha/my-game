@@ -78,8 +78,8 @@ class Po {
         this.leftAttack = true;
         this.Attacking = true; // Po esta lanzando el ataque
 
-        const projectile = new Projectile(this.x, this.y, 10, -1)
-        this.projectiles.push(projectile) // Po deberia disparar un objeto
+        // const projectile = new Projectile(this.x, this.y, 10, -1)
+        // this.projectiles.push(projectile) // Po deberia disparar un objeto
       } else {
         setTimeout(() => {
           this.leftAttack = false;
