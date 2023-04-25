@@ -41,6 +41,7 @@ const startGame = () => {
 
     gameObj.spawnEnemies();
     gameObj.spawnEnemies2();
+    // gameObj.shootingLeft();
     // 3. Iniciar el bucle del juego
     gameObj.gameLoop()
 
@@ -80,7 +81,12 @@ window.addEventListener("keydown", (event) => {
     keys[event.code] = true;
     if (event.code === "Space") {
         spacePressed = true;
+    } else if (event.code === "KeyA") {
+       gameObj.shootingLeft() 
+    } else if (event.code === "KeyD") {
+        gameObj.shootingRight()
     }
+    
 });
 document.addEventListener("keyup", (event) => {
     keys[event.code] = false;
@@ -88,6 +94,7 @@ document.addEventListener("keyup", (event) => {
         spacePressed = false;
     }
 })
+
 
 
 

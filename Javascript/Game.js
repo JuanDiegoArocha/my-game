@@ -1,128 +1,128 @@
 class Game {
+  constructor() {
+    this.background = new Image();
+    this.background.src = "Images/background.jpg";
 
-    constructor() {
+    //* Po
+    this.po = new Po();
 
-        this.background = new Image()
-        this.background.src = "Images/background.jpg";
+    //* Enemy
+    this.enemies = [];
 
+    //* Enemy 2
+    this.enemies2 = [];
 
+    //* Disparo izquierda
+    this.projectileLeft = [];
 
-        //* Po
-        this.po = new Po()
+    //* Disparo derecha
+    this.projectileRight = [];
+  }
 
-        //* Enemy
-        this.enemies = []
+  drawBackground = () => {
+    ctx.drawImage(this.background, 0, 0, canvas.width, canvas.height);
+  };
 
+  clearCanvas = () => {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+  };
 
-        //* Enemy 2
-        this.enemies2 = []
+  spawnEnemies() {
+    setInterval(() => {
+      const newEnemy = new Enemy();
+      this.enemies.push(newEnemy);
+      this.spawnEnemies();
+    }, 3000);
+  }
 
-        //* Disparo
-        this.projectile = new Projectile()
+  spawnEnemies2() {
+    setInterval(() => {
+      const newEnemy = new Enemy2();
+      this.enemies2.push(newEnemy);
+      this.spawnEnemies2();
+    }, 3000);
+  }
 
-
+  checkCollision = () => {
+    // colisiones de los enemigos al tocar a po
+    for (let i = 0; i < this.enemies.length; i++) {
+      const eachEnemy = this.enemies[i];
+      if (
+        this.po.x < eachEnemy.x + eachEnemy.w &&
+        this.po.x + this.po.w > eachEnemy.x &&
+        this.po.y < eachEnemy.y + eachEnemy.h &&
+        this.po.y + this.po.h > eachEnemy.y
+      ) {
+        console.log("colision");
+      }
     }
+  };
 
-
-
-
-
-
-
-
-
-
-
-    drawBackground = () => {
-        ctx.drawImage(this.background, 0, 0, canvas.width, canvas.height)
+  checkCollision2 = () => {
+    for (let i = 0; i < this.enemies2.length; i++) {
+      const eachEnemy = this.enemies2[i];
+      if (
+        this.po.x < eachEnemy.x + eachEnemy.w &&
+        this.po.x + this.po.w > eachEnemy.x &&
+        this.po.y < eachEnemy.y + eachEnemy.h &&
+        this.po.y + this.po.h > eachEnemy.y
+      ) {
+        console.log("colision2");
+      }
     }
+  };
 
-    clearCanvas = () => {
-        ctx.clearRect(0, 0, canvas.width, canvas.height)
-    }
+  shootingLeft = () => {
+    let newShootingLeft = new ProjectileLeft(this.po.x, this.po.y);
+    this.projectileLeft.push(newShootingLeft);
+  };
 
+  shootingRight = () => {
+    let newShootingRight = new ProjectileRight(this.po.x, this.po.y);
+    this.projectileRight.push(newShootingRight);
+  };
 
-    spawnEnemies() {
-     
-        setInterval(() => {
-            const newEnemy = new Enemy();
-            this.enemies.push(newEnemy);
-            this.spawnEnemies();
+  gameLoop = () => {
+    // console.log("Ejecutando recursion del juego")
 
-        }, 3000)
-        
-    }  
+    // 1. Limpieza del canvas
+    this.clearCanvas();
 
-    spawnEnemies2() {
+    // 2. Acciones y movimientos de los elementos
+    this.po.movement();
+    this.enemies.forEach((eachEnemy) => {
+      eachEnemy.move();
+    });
+    this.enemies2.forEach((eachEnemy) => {
+      eachEnemy.move();
+    });
+    this.projectileLeft.forEach((eachProjectileLeft) => {
+      eachProjectileLeft.shoot();
+    });
+    this.projectileRight.forEach((eachProjectileRight) => {
+        eachProjectileRight.shoot();
+      });
 
-        setInterval(() => {
-        const newEnemy = new Enemy2();
-        this.enemies2.push(newEnemy);
-        this.spawnEnemies2()
-    }, 3000)
+    // console.log("Spawn enemies")
+    this.checkCollision();
+    this.checkCollision2();
+    // 3. Dibujado de los elementos //! QUE ESTEN EN ORDEN
+    this.drawBackground();
+    this.po.draw();
+    this.enemies.forEach((eachEnemy) => {
+      eachEnemy.draw();
+    });
+    this.enemies2.forEach((eachEnemy) => {
+      eachEnemy.draw();
+    });
+    this.projectileLeft.forEach((eachProjectileLeft) => {
+      eachProjectileLeft.draw();
+    });
+    this.projectileRight.forEach((eachProjectileRight) => {
+        eachProjectileRight.draw();
+      });
+
+    // 4. Recursion
+    requestAnimationFrame(this.gameLoop);
+  };
 }
-
-
-    
-    checkCollision = () => {
-        // colisiones de los enemigos al tocar a po
-        for (let i = 0; i < this.enemies.length; i++) {
-            const eachEnemy = this.enemies[i]
-            if (
-                this.po.x < eachEnemy.x + eachEnemy.w &&
-                this.po.x + this.po.w > eachEnemy.x &&
-                this.po.y < eachEnemy.y + eachEnemy.h &&
-                this.po.y + this.po.h > eachEnemy.y
-            ) {
-                console.log("colision")
-            }
-        }
-    }
-
-    checkCollision2 = () => {
-        for (let i = 0; i < this.enemies2.length; i++) {
-            const eachEnemy = this.enemies2[i]
-            if ( 
-                this.po.x < eachEnemy.x + eachEnemy.w &&
-                this.po.x + this.po.w > eachEnemy.x &&
-                this.po.y < eachEnemy.y + eachEnemy.h &&
-                this.po.y + this.po.h > eachEnemy.y
-            ){
-                console.log("colision2")
-            }
-        }
-    }
-
-
-
-
-    gameLoop = () => {
-        // console.log("Ejecutando recursion del juego")
-
-
-        // 1. Limpieza del canvas
-        this.clearCanvas()
-
-        // 2. Acciones y movimientos de los elementos
-        this.po.movement()
-        this.enemies.forEach((eachEnemy) => {eachEnemy.move()})
-        this.enemies2.forEach((eachEnemy) =>{eachEnemy.move()})
-       
-
-        // console.log("Spawn enemies") 
-        this.checkCollision()
-        this.checkCollision2()
-        // 3. Dibujado de los elementos //! QUE ESTEN EN ORDEN
-        this.drawBackground()
-        this.po.draw()
-        this.enemies.forEach((eachEnemy) => {eachEnemy.draw()})
-        this.enemies2.forEach((eachEnemy) => {eachEnemy.draw()})
-        this.projectile.draw()
-
-
-        // 4. Recursion
-        requestAnimationFrame(this.gameLoop)
-
-    }
-}
-
