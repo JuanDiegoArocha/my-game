@@ -3,7 +3,7 @@ class ProjectileRight {
 
     constructor(poX, poY) {
 
-        this.x = poX
+        this.x = poX + 200
         this.y = poY + 90
         this.w = 50
         this.h = 50
