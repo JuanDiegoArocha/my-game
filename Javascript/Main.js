@@ -33,12 +33,13 @@ const startGame = () => {
     // 1. Cambiar las pantallas de juego
     splashScreenDOM.style.display = "none";
     canvas.style.display = "block";
-
-
+    pauseBtn.style.display = "block"
+    
+    
     // 2. Crear los elementos del juego
     gameObj = new Game();
     console.log(gameObj)
-
+    
     gameObj.spawnEnemies();
     gameObj.spawnEnemies2();
     // gameObj.shootingLeft();
@@ -106,3 +107,12 @@ document.addEventListener("keyup", (event) => {
 
 
 //* BONUS
+const pauseBtn = document.querySelector("#pause-btn")
+pauseBtn.addEventListener("click", () => {
+    if (gameObj !== undefined && gameObj.isGameON === true) {
+        gameObj.isGameON = false;
+    } else {
+        gameObj.isGameON = true;
+        gameObj.gameLoop()
+    }
+})

@@ -21,6 +21,8 @@ class Game {
     //* Disparo derecha
     this.projectileRight = [];
     this.shootRight = true;
+
+    this.score = 0;
   }
 
   drawBackground = () => {
@@ -151,6 +153,12 @@ class Game {
     }
   };
 
+
+  drawScore = () => {
+    ctx.font = "100px Segoe UI"
+    ctx.fillText(Math.floor(this.score), 900, 100)
+  }
+
   gameLoop = () => {
     // console.log("Ejecutando recursion del juego")
 
@@ -193,7 +201,7 @@ class Game {
     this.projectileRight.forEach((eachProjectileRight) => {
       eachProjectileRight.draw();
     });
-
+    this.drawScore()
     // 4. Recursion
     if (this.isGameOn === true) {
       requestAnimationFrame(this.gameLoop);
