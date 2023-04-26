@@ -33,7 +33,7 @@ const startGame = () => {
     // 1. Cambiar las pantallas de juego
     splashScreenDOM.style.display = "none";
     canvas.style.display = "block";
-    pauseBtn.style.display = "block"
+    pauseBtn.style.display = "block";
     
     
     // 2. Crear los elementos del juego
