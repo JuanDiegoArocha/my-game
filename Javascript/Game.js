@@ -127,6 +127,9 @@ class Game {
           // Eliminar el proyectil del array
           this.projectileLeft.splice(i, 1);
           console.log("LeftColision");
+
+          // Score
+          this.score += 1;
         }
       }
     }
@@ -148,6 +151,9 @@ class Game {
           // Eliminar el proyectil del array
           this.projectileRight.splice(i, 1);
           console.log("RightColision");
+
+          // Score
+          this.score += 1;
         }
       }
     }
