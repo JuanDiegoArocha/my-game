@@ -94,18 +94,18 @@ class Game {
       this.shootLeft = false;
       setTimeout(() => {
         this.shootLeft = true;
-      }, 1500)
+      }, 1500);
     }
   };
 
   shootingRight = () => {
     if (this.shootRight) {
-    let newShootingRight = new ProjectileRight(this.po.x, this.po.y);
-    this.projectileRight.push(newShootingRight);
-    this.shootRight = false;
-    setTimeout(() => {
+      let newShootingRight = new ProjectileRight(this.po.x, this.po.y);
+      this.projectileRight.push(newShootingRight);
+      this.shootRight = false;
+      setTimeout(() => {
         this.shootRight = true;
-    }, 2000)
+      }, 2000);
     }
   };
 
