@@ -130,6 +130,7 @@ class Game {
 
           // Score
           this.score += 1;
+          this.drawScore()
         }
       }
     }
@@ -154,6 +155,7 @@ class Game {
 
           // Score
           this.score += 1;
+          this.drawScore()
         }
       }
     }
