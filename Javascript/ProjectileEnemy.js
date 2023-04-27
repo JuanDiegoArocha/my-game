@@ -1,10 +1,10 @@
-class ProjeltileEnemy {
+class ProjectileEnemy {
 
 
     constructor(enemiesX, enemiesY) {
 
-        this.x = enemiesX
-        this.y = enemiesY
+        this.x = enemiesX + 150
+        this.y = enemiesY + 20
         this.w = 50
         this.h = 50
         this.speed = 5;

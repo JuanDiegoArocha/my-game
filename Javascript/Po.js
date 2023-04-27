@@ -25,10 +25,13 @@ class Po {
     // this.AttackingTime = 0;
 
 
+
   }
 
+
+
   draw = () => {
-    if (this.jump) {
+    if (this.jump) { 
     ctx.drawImage(this.jumpImg, this.x, this.y - 100, this.w, this.h)
     } else if (this.leftAttack) {
       ctx.drawImage(this.leftAttackImg, this.x, this.y, this.w, this.h);
@@ -72,6 +75,7 @@ class Po {
       } else {
         this.jump = false;
       }
+      console.log("ArrowUp")
 
       // Si presionas la "A" po dispara a la izquierda
       if (keys["KeyA"]) {

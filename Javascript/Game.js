@@ -15,6 +15,8 @@ class Game {
 
     //* Enemy 2
     this.enemies2 = [];
+    this.enemyProjectile2 = [];
+    this.enemyShooting2 = true;
 
     //* Disparo izquierda
     this.projectileLeft = [];
@@ -25,6 +27,7 @@ class Game {
     this.shootRight = true;
 
     this.score = 0;
+    
   }
 
   drawBackground = () => {
@@ -39,6 +42,8 @@ class Game {
     setInterval(() => {
       const newEnemy = new Enemy();
       this.enemies.push(newEnemy);
+      this.enemyShoot(newEnemy)
+      
     }, 2400);
   }
 
@@ -46,6 +51,8 @@ class Game {
     setInterval(() => {
       const newEnemy = new Enemy2();
       this.enemies2.push(newEnemy);
+      this.enemyShoot2(newEnemy)
+
     }, 2400);
   }
 
@@ -113,6 +120,8 @@ class Game {
     }
   };
 
+
+
   shootingLeftCollision = () => {
     for (let i = 0; i < this.projectileLeft.length; i++) {
       const eachProjectileLeft = this.projectileLeft[i];
@@ -170,10 +179,53 @@ class Game {
   }
 
 
-  enemyShoot = () => {
-    
+  enemyShoot = (enemy) => {
+    const newEnemyProjectile = new ProjectileEnemy(enemy.x, enemy.y)
+    this.enemyProjectile.push(newEnemyProjectile)
   }
 
+  enemyShoot2 = (enemy2) => {
+    const newEnemyProjectile2 = new ProjectileEnemy2(enemy2.x, enemy2.y)
+    this.enemyProjectile2.push(newEnemyProjectile2)
+  }
+
+  checkEnemyProjectileCollision = () => {
+    for (let i = 0; i < this.enemyProjectile.length; i++) {
+      const eachProjectile = this.enemyProjectile[i];
+      if (
+        this.po.x < eachProjectile.x + eachProjectile.w &&
+        this.po.x + this.po.w > eachProjectile.x &&
+        this.po.y < eachProjectile.y + eachProjectile.h &&
+        this.po.y + this.po.h > eachProjectile.y && 
+        !this.po.crouch
+      ) {
+        console.log("enemyProjectileCollision");
+        this.enemyProjectile.splice(i, 1)
+        this.score -= 1;
+        this.drawScore()
+      }
+    }
+  };
+
+  checkEnemyProjectileCollision2 = () => {
+    for (let i = 0; i < this.enemyProjectile2.length; i++) {
+      const eachProjectile2 = this.enemyProjectile2[i];
+      if (
+        this.po.x < eachProjectile2.x + eachProjectile2.w &&
+        this.po.x + this.po.w > eachProjectile2.x &&
+        this.po.y < eachProjectile2.y + eachProjectile2.h &&
+        this.po.y + this.po.h > eachProjectile2.y && 
+        !this.po.jump 
+      ) {
+        console.log("enemyProjectileCollision");
+  
+        this.enemyProjectile2.splice(i, 1)
+        this.score -= 1;
+        this.drawScore()
+      } 
+  
+    }
+  };
 
 
   gameLoop = () => {
@@ -196,6 +248,13 @@ class Game {
     this.projectileRight.forEach((eachProjectileRight) => {
       eachProjectileRight.shoot();
     });
+    this.enemyProjectile.forEach((eachEnemyProjectile) => {
+      eachEnemyProjectile.shoot();
+    })
+    this.enemyProjectile2.forEach((eachEnemyProjectile2) => {
+      eachEnemyProjectile2.shoot();
+    })
+    // this.po.jumpAction()
 
     
 
@@ -204,6 +263,8 @@ class Game {
     this.checkCollision2();
     this.shootingLeftCollision();
     this.shootingRightCollision();
+    this.checkEnemyProjectileCollision();
+    this.checkEnemyProjectileCollision2()
     // console.log(this.projectileRight.length, this.projectileLeft.length)
     // 3. Dibujado de los elementos //! QUE ESTEN EN ORDEN
     this.drawBackground();
@@ -211,15 +272,23 @@ class Game {
     this.enemies.forEach((eachEnemy) => {
       eachEnemy.draw();
     });
+    this.enemyProjectile.forEach((eachEnemyProjectile) => {
+      eachEnemyProjectile.draw();
+    })
     this.enemies2.forEach((eachEnemy) => {
       eachEnemy.draw();
     });
+    this.enemyProjectile2.forEach((eachEnemyProjectile2) => {
+      eachEnemyProjectile2.draw();
+    })
     this.projectileLeft.forEach((eachProjectileLeft) => {
       eachProjectileLeft.draw();
     });
     this.projectileRight.forEach((eachProjectileRight) => {
       eachProjectileRight.draw();
     });
+
+
     this.drawScore()
     // 4. Recursion
     if (this.isGameOn === true) {

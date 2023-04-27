@@ -7,14 +7,17 @@ const restartBtnDOM = document.querySelector("#restart-btn")
 const canvas = document.querySelector("#my-canvas")
 
 const ctx = canvas.getContext("2d")
+const audio = document.querySelector("#my-audio")
 
+audio.currentTime = 0 // debe reiniciar la musica al principio
+audio.volume = 0.1 // esto indica el nivel de volumen ahora esta en 20%
 
 
 
 let gameObj;
 
 let keys = {};
-let spacePressed = false;
+let jumpPressed = false;
 
 
 
@@ -40,7 +43,7 @@ const startGame = () => {
     gameObj = new Game();
 
     console.log(gameObj)
-    
+    audio.play()
     gameObj.spawnEnemies();
     gameObj.spawnEnemies2();
     // gameObj.shootingLeft();
@@ -84,8 +87,9 @@ startBtnDOM.addEventListener("click", startGame)
 restartBtnDOM.addEventListener("click", restartGame)
 window.addEventListener("keydown", (event) => {
     keys[event.code] = true;
-    if (event.code === "Space") {
-        spacePressed = true;
+    if (event.code === "ArrowUp") {
+        // gameObj.jumpAction();
+        jumpPressed = true;
     } else if (event.code === "KeyA") {
        gameObj.shootingLeft() 
     } else if (event.code === "KeyD") { 
@@ -95,8 +99,8 @@ window.addEventListener("keydown", (event) => {
 });
 document.addEventListener("keyup", (event) => {
     keys[event.code] = false;
-    if (event.code === "Space") {
-        spacePressed = false;
+    if (event.code === "ArrowUp") {
+        jumpPressed = false;
     }
 })
 
