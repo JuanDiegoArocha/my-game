@@ -10,6 +10,8 @@ class Game {
 
     //* Enemy
     this.enemies = [];
+    this.enemyProjectile = [];
+    this.enemyShooting = true;
 
     //* Enemy 2
     this.enemies2 = [];
@@ -37,14 +39,14 @@ class Game {
     setInterval(() => {
       const newEnemy = new Enemy();
       this.enemies.push(newEnemy);
-    }, 1500);
+    }, 2400);
   }
 
   spawnEnemies2() {
     setInterval(() => {
       const newEnemy = new Enemy2();
       this.enemies2.push(newEnemy);
-    }, 2500);
+    }, 2400);
   }
 
   checkCollision = () => {
@@ -96,7 +98,7 @@ class Game {
       this.shootLeft = false;
       setTimeout(() => {
         this.shootLeft = true;
-      }, 1500);
+      }, 2500);
     }
   };
 
@@ -107,7 +109,7 @@ class Game {
       this.shootRight = false;
       setTimeout(() => {
         this.shootRight = true;
-      }, 2000);
+      }, 2500);
     }
   };
 
@@ -167,6 +169,13 @@ class Game {
     ctx.fillText(Math.floor(this.score), 900, 100)
   }
 
+
+  enemyShoot = () => {
+    
+  }
+
+
+
   gameLoop = () => {
     // console.log("Ejecutando recursion del juego")
 
@@ -187,6 +196,8 @@ class Game {
     this.projectileRight.forEach((eachProjectileRight) => {
       eachProjectileRight.shoot();
     });
+
+    
 
     // console.log("Spawn enemies")
     this.checkCollision();

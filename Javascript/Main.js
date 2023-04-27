@@ -38,6 +38,7 @@ const startGame = () => {
     
     // 2. Crear los elementos del juego
     gameObj = new Game();
+
     console.log(gameObj)
     
     gameObj.spawnEnemies();
@@ -109,10 +110,10 @@ document.addEventListener("keyup", (event) => {
 //* BONUS
 const pauseBtn = document.querySelector("#pause-btn")
 pauseBtn.addEventListener("click", () => {
-    if (gameObj !== undefined && gameObj.isGameON === true) {
-        gameObj.isGameON = false;
+    if (gameObj !== undefined && gameObj.isGameOn === true) {
+        gameObj.isGameOn = false;
     } else {
-        gameObj.isGameON = true;
+        gameObj.isGameOn = true;
         gameObj.gameLoop()
     }
 })
