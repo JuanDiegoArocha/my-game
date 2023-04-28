@@ -44,7 +44,7 @@ class Game {
       this.enemies.push(newEnemy);
       this.enemyShoot(newEnemy)
       
-    }, 2400);
+    }, 2500);
   }
 
   spawnEnemies2() {
@@ -53,7 +53,7 @@ class Game {
       this.enemies2.push(newEnemy);
       this.enemyShoot2(newEnemy)
 
-    }, 2400);
+    }, 2500);
   }
 
   checkCollision = () => {
